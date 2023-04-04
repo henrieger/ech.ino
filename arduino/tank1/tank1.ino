@@ -1,5 +1,5 @@
-# include "temperature.h"
-# include "water.h"
+# include "src/sensors/temperature.h"
+# include "src/sensors/water.h"
 
 # define TEMPERATURE_PIN 13
 # define WATER_PIN A0
