@@ -33,7 +33,7 @@ The `comms` library will provide a basic inteface for many communication media. 
 
 A more in depth documentation of the Arduino code can be found in the [Project Wiki](https://github.com/henrieger/pva-paleo/wiki).
 
-# The Server
+## The Server
 
 The purpose of the server is also as interface, but this time, between the Arduinos and the database where the sensors readings should be stored. It should be able to connect with many boards, each sending its sensors' data, and store these readings in the database file presented in the `db` directory of this repository. For this, a communication protocol had to be estabilished to ensure that all the boards could be served correctly. The documentation for the server code, as well as the communication protocol, can be found in the [Project Wiki](https://github.com/henrieger/pva-paleo/wiki).
 
