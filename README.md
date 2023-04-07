@@ -1,8 +1,8 @@
-# Fish Tank Monitoring for LABPALEO-UFPR
+# `Echi.ino`: Arduino-based fish tank monitoring for LABPALEO-UFPR
 
 This is a project that uses Arduino boards for monitoring fish tanks to aid in research of actualistic taphonomy for [LABPALEO-UFPR](www.labpaleo.ufpr.br/), a paleontology lab in Curitiba, Brazil.
 
-The projects uses an array of different types of sensors connected to Arduinos, which are connected to a server, to store and visualize data of many variables of fish tanks containing decaying ophiuroids in many distinct conditions. The goal of the study is to analyze how these conditions interfere in the preservation process of those animals in nature. The paper describing the complete experiment is yet to be published.
+The projects uses an array of different types of sensors connected to Arduinos, which in turn are connected to a server, to store and visualize data of fish tanks containing decaying ophiuroids in many distinct conditions. The goal of the study is to analyze how such conditions interfere in the preservation process of those animals in nature. The paper describing the complete experiment is yet to be published.
 
 ## Architecture
 
