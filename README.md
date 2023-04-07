@@ -8,7 +8,7 @@ The projects uses an array of different types of sensors connected to Arduinos, 
 
 The basic architecture of this project is divided in 5 layers: the sensors, the Arduinos, a server used as interface between the boards and the database, the database itself and a visualization tool. All these layers, as well as their communications, can be visualized in the image below.
 
-// Insert image of the layers
+![Layer schema of the project](https://github.com/henrieger/echiino/blob/main/img/layer-schema.png?raw=true)
 
 ## Sensors
 
