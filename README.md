@@ -49,4 +49,4 @@ This way, it is possible to keep track of when measurements were taken in each f
 
 ## Visualization Tool
 
-The visualization tool used for accessing the dataset is a [Metabase](https://metabase.com) local instance. Metabase is a Java application that allows the construction of graphs, tables and full dashboards without direct writing SQL queries (though it allows the user to write custom queries). It is very easy to instantiate and use. The idea is to build a simple dashboard that shows each tank's measurements over time, as well as some graphs comparing the metrics in different tanks with different conditions. 
+The visualization tool used for accessing the dataset is a [Metabase](https://metabase.com) local instance. Metabase is a Java application that allows the construction of charts, tables and full dashboards without direct writing SQL queries (though it allows the user to write custom queries). It is very easy to instantiate and use. The idea is to build a simple dashboard that shows each tank's measurements over time, as well as some graphs comparing the metrics in different tanks with different conditions. 
