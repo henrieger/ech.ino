@@ -23,7 +23,7 @@ More sensors are expected to be added soon. As explained in the next section, th
 
 In the system, the Arduinos serve as interfaces between the sensors in a tank and the central computer where our database is. It should periodically collect, convert and send readings to the server, via some communication channel (like an USB cable, for example). The image below illustrates how one of these modules of Arduino and sensors can be assembled.
 
-// Insert TinkerCAD image of assembled module
+![TinkerCAD model of one of the possible circuits](https://github.com/henrieger/ech.ino/blob/main/img/tank1.png?raw=true)
 
 As the needs of each tank may be distinct, and the server might not be reachable with USB cable, the code must be versatile to switch between sensors and communication media. For this purpose, two main libraries are implemented and present in the directory `arduino/src` of this repository: `sensors` and `comms` (TODO).
 
