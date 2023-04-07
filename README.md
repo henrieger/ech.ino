@@ -1,4 +1,4 @@
-# `Echi.ino`: Arduino-based fish tank monitoring for LABPALEO-UFPR
+# `Ech.ino`: Arduino-based fish tank monitoring for LABPALEO-UFPR
 
 This is a project that uses Arduino boards for monitoring fish tanks to aid in research of actualistic taphonomy for [LABPALEO-UFPR](www.labpaleo.ufpr.br/), a paleontology lab in Curitiba, Brazil.
 
@@ -8,7 +8,7 @@ The projects uses an array of different types of sensors connected to Arduinos, 
 
 The basic architecture of this project is divided in 5 layers: the sensors, the Arduinos, a server used as interface between the boards and the database, the database itself and a visualization tool. All these layers, as well as their communications, can be visualized in the image below.
 
-![Layer schema of the project](https://github.com/henrieger/echi.ino/blob/main/img/layer-schema.png?raw=true)
+![Layer schema of the project](https://github.com/henrieger/ech.ino/blob/main/img/layer-schema.png?raw=true)
 
 ## Sensors
 
