@@ -8,7 +8,7 @@ The projects uses an array of different types of sensors connected to Arduinos, 
 
 The basic architecture of this project is divided in 5 layers: the sensors, the Arduinos, a server used as interface between the boards and the database, the database itself and a visualization tool. All these layers, as well as their communications, can be visualized in the image below.
 
-![Layer schema of the project](https://github.com/henrieger/ech.ino/blob/main/img/layer-schema.png?raw=true)
+![Layer schema of the project](./img/layer-schema.png)
 
 ## Sensors
 
@@ -23,7 +23,7 @@ More sensors are expected to be added soon. As explained in the next section, th
 
 In the system, the Arduinos serve as interfaces between the sensors in a tank and the central computer where our database is. It should periodically collect, convert and send readings to the server, via some communication channel (like an USB cable, for example). The image below illustrates how one of these modules of Arduino and sensors can be assembled.
 
-![TinkerCAD model of one of the possible circuits](https://github.com/henrieger/ech.ino/blob/main/img/tank1.png?raw=true)
+![TinkerCAD model of one of the possible circuits](./img/tank1.png)
 
 As the needs of each tank may be distinct, and the server might not be reachable with USB cable, the code must be versatile to switch between sensors and communication media. For this purpose, two main libraries are implemented and present in the directory `arduino/src` of this repository: `sensors` and `comms` (TODO).
 
@@ -31,11 +31,11 @@ The `sensors` library offers a basic interface for how a sensor should behave th
 
 The `comms` library will provide a basic inteface for many communication media. It should be based in the `Serial` standard library for Arduino.
 
-A more in depth documentation of the Arduino code can be found in the [Project Wiki](https://github.com/henrieger/pva-paleo/wiki).
+A more in depth documentation of the Arduino code can be found in the [Project Wiki](../../wiki).
 
 ## The Server
 
-The purpose of the server is also as interface, but this time, between the Arduinos and the database where the sensors readings should be stored. It should be able to connect with many boards, each sending its sensors' data, and store these readings in the database file presented in the `db` directory of this repository. For this, a communication protocol had to be estabilished to ensure that all the boards could be served correctly. The documentation for the server code, as well as the communication protocol, can be found in the [Project Wiki](https://github.com/henrieger/pva-paleo/wiki).
+The purpose of the server is also as interface, but this time, between the Arduinos and the database where the sensors readings should be stored. It should be able to connect with many boards, each sending its sensors' data, and store these readings in the database file presented in the `db` directory of this repository. For this, a communication protocol had to be estabilished to ensure that all the boards could be served correctly. The documentation for the server code, as well as the communication protocol, can be found in the [Project Wiki](../../wiki).
 
 ## Database
 
