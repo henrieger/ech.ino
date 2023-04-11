@@ -18,7 +18,7 @@ def main():
 
     table.insert(data)
 
-    res = [(reg[0], reg[1], datetime.fromtimestamp(reg[2])) for reg in table.select_all().fetchall()]
+    res = [(reg[0], reg[1], datetime.fromtimestamp(reg[2])) for reg in table.select_all()]
     print(res)
 
 if __name__ == '__main__':

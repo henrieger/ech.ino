@@ -30,7 +30,7 @@ class SQLite(Database):
     '''Execute a SELECT statement'''
     def select(self, table: str, columns: list, where=None):
         select_str = f"SELECT {', '.join(columns)} FROM {table}"
-        return self.connection.execute(select_str)
+        return self.connection.execute(select_str).fetchall()
 
     '''Execute an INSERT statement'''
     def insert(self, table: str, data: list):
