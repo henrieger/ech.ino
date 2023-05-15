@@ -1,6 +1,7 @@
 TRIGGER = b'T'
-INIT_MARKER = b'<'
-END_MARKER = b'>'
+DATA_REQUEST = b'DR'
+INIT_MARKER = bytearray.fromhex('00ff00ff')
+END_MARKER = bytearray.fromhex('ff00ff00')
 
 class Comms:
     def __init__(self):

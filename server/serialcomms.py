@@ -7,26 +7,28 @@ class Serial(Comms):
         self.baudrate = baudrate
         self.serial = serial.Serial(port, baudrate)
 
-    def read(self) -> bytearray:
-        recv_bytes = []
+    def read(self, timeout=None) -> bytearray:
+        buf = None
+    
+        if timeout:
+            self.serial.timeout = timeout
 
         while True:
-            c = self.serial.read(1)
-            if c == INIT_MARKER:
-                c = self.serial.read(1)
-                while c != INIT_MARKER and c != END_MARKER:
-                    recv_bytes.append(c)
-                    c = self.serial.read(1)
-                if c == INIT_MARKER:
-                    recv_bytes.clear()
-                    continue
-                if c == END_MARKER:
-                    break
-        
-        return b''.join(recv_bytes)
+            buf = self.serial.read(4)
+
+            if timeout is not None and len(buf) != 4: return None 
+
+            if buf == bytes(INIT_MARKER):
+                buf = self.serial.read_until(END_MARKER)[:-4]
+                print('Recv:', buf, flush=True)
+                self.serial.timeout = None
+
+                if INIT_MARKER in buf: return None
+                return buf
 
     def write(self, data: bytearray):
-        self.serial.write(data)
+        print('Sent:', INIT_MARKER + data + END_MARKER, flush=True)
+        self.serial.write(INIT_MARKER + data + END_MARKER)
         self.serial.flush()
 
     def close(self):
