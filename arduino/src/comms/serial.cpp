@@ -22,6 +22,7 @@ byte SerialComms::checkForTrigger()
     if (Serial.available() <= 0) return 0;
 
     uint32_t buffer;
+
     Serial.readBytes((uint8_t *) &buffer, sizeof(uint32_t));
     if (buffer != INIT_MARKER) return 0;
 
@@ -48,7 +49,6 @@ byte SerialComms::checkForDataRequest()
     byte result = (buffer16 == DATA_REQUEST);
 
     Serial.readBytes((uint8_t *) &buffer16, sizeof(uint16_t));
-
     if (buffer16 != getTankID()) return 0;
 
     Serial.readBytes((uint8_t *) &buffer32, sizeof(uint32_t));
@@ -76,6 +76,9 @@ byte SerialComms::acknowledged()
 byte SerialComms::acknowledged(int timeout)
 {
     Serial.setTimeout(timeout * 1000);
+
+    // Delay for checking availability of serial bus
+    delay(50);
 
     if (Serial.available() <= 0) return 0;
 

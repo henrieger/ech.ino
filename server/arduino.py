@@ -3,23 +3,32 @@ from datetime import datetime
 
 import struct
 
+# Sensor types
+WATER = 0
+TEMPERATURE = 1
+LIGHT = 2
+PH = 3
+OXYGEN = 4
+
 class Datum:
-    def __init__(self, info: bytearray):
+    def __init__(self, tank_id: int, info: bytearray):
         if len(info) != 6:
             print(len(info))
             raise Exception('Invalid info bytearray')
 
         # Get measurement type
-        if info[0] | 0x80 == 0x80:
-            measurement_type = 'f'
+        if info[0] & 0xff >= 0x80:
+            measurement_type = '>f'
         else:
-            measurement_type = 'i'
+            measurement_type = '>i'
 
         header = bytearray(info[0:2])
         header[0] = header[0] & 0x7f
 
-        self.tank_id = int.from_bytes(header, 'big')
-        [self.measurement] = struct.unpack(measurement_type, info[2:6])
+        self.tank_id = tank_id
+
+        self.sensor = int.from_bytes(header, 'big')
+        [self.measurement] = struct.unpack_from(measurement_type, info, 2)
 
     def mark_with_timestamp(self, timestamp: int):
         self.datetime = datetime.fromtimestamp(timestamp)
@@ -61,7 +70,7 @@ class Arduino:
 
         data = []
         for packet in packets:
-            datum = Datum(packet)
+            datum = Datum(self.tank_id, packet)
             datum.mark_as_now()
             data.append(datum)
 
