@@ -12,8 +12,12 @@ class SerialComms: public Comms
         void begin();
 
         byte checkForTrigger();
+        byte checkForDataRequest();
 
-        void sendData(uint8_t *measurement);
+        void sendData(uint8_t *buffer, int size);
+
+        byte acknowledged();
+        byte acknowledged(int timeout);
 };
 
 # endif
