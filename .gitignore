@@ -1,3 +1,4 @@
 db/
 server/.venv/
 server/__pycache__/
+metabase/db_*.txt

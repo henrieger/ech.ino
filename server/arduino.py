@@ -43,7 +43,7 @@ class Datum:
         return {
                 'tank_id': self.tank_id,
                 'measurement': self.measurement,
-                'timestamp': self.datetime.timestamp()
+                'timestamp': self.datetime
                }
 
 class Arduino:

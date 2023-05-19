@@ -9,10 +9,10 @@ from time import sleep
 def main():
     db = SQLite(DB_DIRNAME, DB_FILENAME)
 
-    water_table_schema = {'tank_id': int, 'measurements': int, 'timestamp': float}
+    water_table_schema = {'tank_id': int, 'measurements': int, 'timestamp': datetime}
     water_table = Table(db, 'water', schema=water_table_schema, reflect=True)
 
-    temperature_table_schema = {'tank_id': int, 'measurements': float, 'timestamp': float}
+    temperature_table_schema = {'tank_id': int, 'measurements': float, 'timestamp': datetime}
     temperature_table = Table(db, 'temperature', schema=temperature_table_schema, reflect=True)
 
     arduinos = []
