@@ -28,4 +28,4 @@ void Sensor::setSensorType(sensor_type _type) { type = _type; }
 int Sensor::getInputPin() { return inputPin; }
 void Sensor::setInputPin(int _inputPin) { inputPin = _inputPin; }
 
-int Sensor::readInput() { return 0; }
+long Sensor::readInput() { return 0; }

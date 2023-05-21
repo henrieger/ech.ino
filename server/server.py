@@ -30,30 +30,32 @@ def main():
 
     print('Tanks connected:', [a.tank_id for a in arduinos], flush=True)
 
-    water_data = []
-    temperature_data = []
-    for _ in range(10):
+    while True:
+        water_data = []
+        temperature_data = []
         Arduino.trigger_measurements(ser)
         for arduino in arduinos:
             arduino.request_data()
             data = arduino.read_data()
 
+            arduino.acknowledge()
+
             water_data.extend([d.as_dict() for d in data if d.sensor == WATER])
             temperature_data.extend([d.as_dict() for d in data if d.sensor == TEMPERATURE])
 
-            print('Water:', water_data, flush=True)
-            print('Temperature:', temperature_data, flush=True)
-            arduino.acknowledge()
-        sleep(3)
+        print('Water:', water_data, flush=True)
+        print('Temperature:', temperature_data, flush=True)
     
-    water_table.insert(water_data)
-    temperature_table.insert(temperature_data)
+        water_table.insert(water_data)
+        temperature_table.insert(temperature_data)
+        
+        sleep(10)
 
-    res = [(reg[0], reg[1], datetime.fromtimestamp(reg[2])) for reg in water_table.select_all()]
-    print(res, flush=True)
+    # res = [(reg[0], reg[1], datetime.fromtimestamp(reg[2])) for reg in water_table.select_all()]
+    # print(res, flush=True)
 
-    res = [(reg[0], reg[1], datetime.fromtimestamp(reg[2])) for reg in temperature_table.select_all()]
-    print(res, flush=True)
+    # res = [(reg[0], reg[1], datetime.fromtimestamp(reg[2])) for reg in temperature_table.select_all()]
+    # print(res, flush=True)
 
 if __name__ == '__main__':
     main()

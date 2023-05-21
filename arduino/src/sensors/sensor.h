@@ -16,7 +16,7 @@ class Sensor {
         Sensor(sensor_type, int);
         Sensor(sensor_type, int, int *);
 
-        int readInput();
+        long readInput();
 
         sensor_type getSensorType();
         void setSensorType(sensor_type);

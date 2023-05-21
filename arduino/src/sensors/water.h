@@ -13,7 +13,7 @@ class WaterSensor: public Sensor
 
         void warnOfWaterLevel();
         int getThreshold();
-        int readInput();
+        long readInput();
 
         int getButtonPin();
         void setButtonPin(int _buttonPin);
@@ -30,7 +30,7 @@ class WaterSensor: public Sensor
     private:
 
         int buttonPin, potentiometerPin, buzzerPin;
-        int waterBaseInput;
+        long waterBaseInput;
 };
 
 # endif

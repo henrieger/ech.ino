@@ -21,15 +21,14 @@ void WaterSensor::begin(int buttonPin, int potentiometerPin, int buzzerPin)
 
     noTone(buzzerPin);
 
-    Serial.println("Aperte o botão para configurar o nível de água");
     while (digitalRead(buttonPin) == LOW) {}
 
-    waterBaseInput = analogRead(getInputPin());
+    waterBaseInput = (long) analogRead(getInputPin());
 }
 
-int WaterSensor::readInput()
+long WaterSensor::readInput()
 {
-    return waterBaseInput - analogRead(getInputPin());
+    return waterBaseInput - (long) analogRead(getInputPin());
 }
 
 void WaterSensor::warnOfWaterLevel()

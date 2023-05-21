@@ -13,7 +13,7 @@ class TemperatureSensor: public Sensor
 
         void begin();
 
-        int readInput();
+        long readInput();
         float readFloatInput();
 
     private:

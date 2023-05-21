@@ -21,7 +21,7 @@ float TemperatureSensor::readFloatInput()
     return sensors.getTempCByIndex(0);
 }
 
-int TemperatureSensor::readInput()
+long TemperatureSensor::readInput()
 {
-    return (int) readFloatInput();
+    return (long) readFloatInput();
 }
