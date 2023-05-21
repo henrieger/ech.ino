@@ -1,5 +1,6 @@
 # include "src/sensors/temperature.h"
 # include "src/sensors/water.h"
+# include "src/sensors/light.h"
 # include "src/comms/serial.h"
 # include <string.h>
 # include <LiquidCrystal_I2C.h>
@@ -19,10 +20,11 @@ byte waiting = true;
 
 TemperatureSensor tempSensor(TEMPERATURE_PIN);
 WaterSensor waterSensor(WATER_PIN);
+LightSensor lightSensor;
 
-float temperature, sentTemperature;
+float temperature, sentTemperature, light, sentLight;
 long waterInput, sentWaterInput;
-int tempSensorInfo, waterSensorInfo;
+int tempSensorInfo, waterSensorInfo, lightSensorInfo;
 
 LiquidCrystal_I2C lcd(LCD_ADDR, COL, LIN);
 byte degreeSymbol[8] = 
@@ -50,6 +52,7 @@ void setup()
     serial.begin();
 
     tempSensor.begin();
+    lightSensor.begin();
 
     lcd.setCursor(3, 1);
     lcd.print("ZEROING SENSOR");
@@ -61,6 +64,9 @@ void setup()
 
     waterSensorInfo = WATER;
     reverse((uint8_t *) &waterSensorInfo, sizeof(int));
+
+    lightSensorInfo = LIGHT | 0x8000;
+    reverse((uint8_t *) &lightSensorInfo, sizeof(int));
 }
 
 void loop()
@@ -74,14 +80,20 @@ void loop()
     lcd.write((byte)0);
     lcd.print("C");
 
-    waterInput = waterSensor.readInput();
+    light = lightSensor.readFloatInput();
     lcd.setCursor(0, 1);
+    lcd.print("Light: ");
+    lcd.print(light);
+    lcd.print(" lx");
+
+    waterInput = waterSensor.readInput();
+    lcd.setCursor(0, 2);
     lcd.print("Water: ");
     lcd.print(waterInput);
 
     int waterThreshold = analogRead(POTENTIOMETER_PIN) / 100;
 
-    lcd.setCursor(0, 2);
+    lcd.setCursor(0, 3);
     lcd.print("Threshold: ");
     lcd.print(waterSensor.getThreshold());
     
@@ -103,13 +115,14 @@ void loop()
         
         sentTemperature = temperature;
         sentWaterInput = waterInput;
+        sentLight = light;
     }
 
     if (!waiting && serial.checkForDataRequest())
     {
         waiting = true;
 
-        uint8_t buff[12];
+        uint8_t buff[18];
 
         memcpy(buff, &tempSensorInfo, 2);
         memcpy(buff+2, reverse((uint8_t *) &sentTemperature, 4), 4);
@@ -117,9 +130,12 @@ void loop()
         memcpy(buff+6, &waterSensorInfo, 2);
         memcpy(buff+8, reverse((uint8_t *) &sentWaterInput, 4), 4);
 
+        memcpy(buff+12, &lightSensorInfo, 2);
+        memcpy(buff+14, reverse((uint8_t *) &sentLight, 4), 4);
+
         do
         {
-            serial.sendData(buff, 12);
+            serial.sendData(buff, 18);
         } while (!serial.acknowledged());
     }
 
