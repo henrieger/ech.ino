@@ -12,6 +12,19 @@ def py2sqlitetype(t):
         return 'NULL'
     return 'BLOB'
 
+def sqlite2pytype(t: str):
+    if t == 'INTEGER':
+        return int
+    if t == 'REAL':
+        return float
+    if t == 'TEXT':
+        return str
+    if t == 'NULL':
+        return None
+    if t == 'BLOB':
+        return object
+    return False
+
 class SQLite(Database):
     '''Create a new SQLite object and connect to database'''
     def __init__(self, dirname, filename):
@@ -37,3 +50,14 @@ class SQLite(Database):
         insert_str = f"INSERT INTO {table} VALUES (:{', :'.join(data[0].keys())})"
         self.connection.executemany(insert_str, data)
         return self.connection.commit()
+    
+    '''Check if table exists'''
+    def table_exists(self, table: str):
+       data = self.select(table, ['*'])
+       return len(data) > 0
+
+    '''Get list of columns from table'''
+    def get_columns(self, table: str):
+       pragma_str = f"PRAGMA table_info({table});"
+       data = self.connection.execute(pragma_str).fetchall()
+       return {d[1]: sqlite2pytype(d[2]) for d in data}

@@ -17,8 +17,11 @@ class Database:
 
     '''Check if table exists'''
     def table_exists(self, table: str):
-        # TODO: retrieve table data from DB
-        return False
+        pass
+
+    '''Get list of columns from table'''
+    def get_columns(self, table: str):
+        pass
 
 class Table:
     '''Create new Table object'''
@@ -27,8 +30,8 @@ class Table:
         self.name = name
         
         if reflect and db.table_exists(name):
-            # TODO: retrieve table data from DB
-            return None
+            self.columns = self.db.get_columns(name)
+            return
 
         self.columns = list(schema.keys())
         db.drop_if_exists(name)
