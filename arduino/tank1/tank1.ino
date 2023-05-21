@@ -25,12 +25,24 @@ long waterInput, sentWaterInput;
 int tempSensorInfo, waterSensorInfo;
 
 LiquidCrystal_I2C lcd(LCD_ADDR, COL, LIN);
+byte degreeSymbol[8] = 
+{
+    0b00010,
+    0b00101,
+    0b00010,
+    0b00000,
+    0b00000,
+    0b00000,
+    0b00000,
+    0b00000
+};
 
 void setup()
 {
     lcd.init();
     lcd.backlight();
     lcd.clear();
+    lcd.createChar(0, degreeSymbol);
 
     randomSeed(analogRead(2));
     delay(random(0, 2000));
@@ -85,7 +97,8 @@ void loop()
     lcd.setCursor(0, 0);
     lcd.print("Temp: ");
     lcd.print(temperature);
-    lcd.print(" ºC");
+    lcd.write((byte)0);
+    lcd.print("C");
 
     waterInput = waterSensor.readInput();
     lcd.setCursor(0, 1);
