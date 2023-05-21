@@ -39,8 +39,8 @@ void setup()
 
     tempSensor.begin();
 
-    lcd.setCursor(4, 1);
-    lcd.print("ZERAR SENSOR");
+    lcd.setCursor(3, 1);
+    lcd.print("ZEROING SENSOR");
     waterSensor.begin(BUTTON_PIN, POTENTIOMETER_PIN, BUZZER_PIN);
     lcd.clear();
 
@@ -98,6 +98,16 @@ void loop()
     lcd.print("Threshold: ");
     lcd.print(waterSensor.getThreshold());
     
+    if (waterSensor.getButtonInput())
+    {
+        lcd.clear();
+        lcd.setCursor(0, 1);
+        lcd.print("RESET WATER LEVEL...");
+
+        while(waterSensor.getButtonInput()) {}
+        waterSensor.resetWaterBaseInput();
+    }
+
     waterSensor.warnOfWaterLevel();
 
     delay(1000);

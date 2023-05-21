@@ -48,6 +48,7 @@ int WaterSensor::getThreshold()
 
 int WaterSensor::getButtonPin() { return buttonPin; }
 void WaterSensor::setButtonPin(int _buttonPin) { buttonPin = _buttonPin; }
+int WaterSensor::getButtonInput() { return digitalRead(getButtonPin()); }
 
 int WaterSensor::getPotentiometerPin() { return potentiometerPin; }
 void WaterSensor::setPotentiometerPin(int _potentiometerPin) { potentiometerPin = _potentiometerPin; }
@@ -57,3 +58,4 @@ void WaterSensor::setBuzzerPin(int _buzzerPin) { buzzerPin = _buzzerPin; }
 
 int WaterSensor::getWaterBaseInput() { return waterBaseInput; }
 void WaterSensor::setWaterBaseInput(int _waterBaseInput) { waterBaseInput = _waterBaseInput; }
+void WaterSensor::resetWaterBaseInput() { waterBaseInput = analogRead(getInputPin()); }

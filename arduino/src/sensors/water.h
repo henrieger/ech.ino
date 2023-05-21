@@ -17,6 +17,7 @@ class WaterSensor: public Sensor
 
         int getButtonPin();
         void setButtonPin(int _buttonPin);
+        int getButtonInput();
 
         int getPotentiometerPin();
         void setPotentiometerPin(int _potentiometerPin);
@@ -26,6 +27,7 @@ class WaterSensor: public Sensor
 
         int getWaterBaseInput();
         void setWaterBaseInput(int _waterBaseInput);
+        void resetWaterBaseInput();
 
     private:
 
