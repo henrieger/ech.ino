@@ -65,32 +65,6 @@ void setup()
 
 void loop()
 {
-    if (waiting && serial.checkForTrigger())
-    {
-        waiting = false;
-        
-        sentTemperature = temperature;
-        sentWaterInput = waterInput;
-    }
-
-    if (!waiting && serial.checkForDataRequest())
-    {
-        waiting = true;
-
-        uint8_t buff[12];
-
-        memcpy(buff, &tempSensorInfo, 2);
-        memcpy(buff+2, reverse((uint8_t *) &sentTemperature, 4), 4);
-
-        memcpy(buff+6, &waterSensorInfo, 2);
-        memcpy(buff+8, reverse((uint8_t *) &sentWaterInput, 4), 4);
-
-        do
-        {
-            serial.sendData(buff, 12);
-        } while (!serial.acknowledged());
-    }
-
     lcd.clear();
 
     temperature = tempSensor.readFloatInput();            
@@ -122,6 +96,32 @@ void loop()
     }
 
     waterSensor.warnOfWaterLevel();
+
+    if (waiting && serial.checkForTrigger())
+    {
+        waiting = false;
+        
+        sentTemperature = temperature;
+        sentWaterInput = waterInput;
+    }
+
+    if (!waiting && serial.checkForDataRequest())
+    {
+        waiting = true;
+
+        uint8_t buff[12];
+
+        memcpy(buff, &tempSensorInfo, 2);
+        memcpy(buff+2, reverse((uint8_t *) &sentTemperature, 4), 4);
+
+        memcpy(buff+6, &waterSensorInfo, 2);
+        memcpy(buff+8, reverse((uint8_t *) &sentWaterInput, 4), 4);
+
+        do
+        {
+            serial.sendData(buff, 12);
+        } while (!serial.acknowledged());
+    }
 
     delay(1000);
 }
