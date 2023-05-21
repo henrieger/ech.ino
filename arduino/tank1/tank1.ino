@@ -20,8 +20,8 @@ byte waiting = true;
 TemperatureSensor tempSensor(TEMPERATURE_PIN);
 WaterSensor waterSensor(WATER_PIN);
 
-float temperature;
-long waterInput;
+float temperature, sentTemperature;
+long waterInput, sentWaterInput;
 int tempSensorInfo, waterSensorInfo;
 
 LiquidCrystal_I2C lcd(LCD_ADDR, COL, LIN);
@@ -57,20 +57,8 @@ void loop()
     {
         waiting = false;
         
-        temperature = tempSensor.readFloatInput();
-
-        lcd.clear();
-            
-        lcd.setCursor(0, 0);
-        lcd.print("Temp: ");
-        lcd.print(temperature);
-        lcd.print(" oC");
-
-        waterInput = waterSensor.readInput();
-        // waterInput = 2;
-        lcd.setCursor(0, 1);
-        lcd.print("Agua: ");
-        lcd.print(waterInput);
+        sentTemperature = temperature;
+        sentWaterInput = waterInput;
     }
 
     if (!waiting && serial.checkForDataRequest())
@@ -80,16 +68,29 @@ void loop()
         uint8_t buff[12];
 
         memcpy(buff, &tempSensorInfo, 2);
-        memcpy(buff+2, reverse((uint8_t *) &temperature, 4), 4);
+        memcpy(buff+2, reverse((uint8_t *) &sentTemperature, 4), 4);
 
         memcpy(buff+6, &waterSensorInfo, 2);
-        memcpy(buff+8, reverse((uint8_t *) &waterInput, 4), 4);
+        memcpy(buff+8, reverse((uint8_t *) &sentWaterInput, 4), 4);
 
         do
         {
             serial.sendData(buff, 12);
         } while (!serial.acknowledged());
     }
+
+    lcd.clear();
+
+    temperature = tempSensor.readFloatInput();            
+    lcd.setCursor(0, 0);
+    lcd.print("Temp: ");
+    lcd.print(temperature);
+    lcd.print(" ºC");
+
+    waterInput = waterSensor.readInput();
+    lcd.setCursor(0, 1);
+    lcd.print("Water: ");
+    lcd.print(waterInput);
 
     int waterThreshold = analogRead(POTENTIOMETER_PIN) / 100;
 
