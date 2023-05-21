@@ -53,8 +53,11 @@ class SQLite(Database):
     
     '''Check if table exists'''
     def table_exists(self, table: str):
-       data = self.select(table, ['*'])
-       return len(data) > 0
+        try:
+            data = self.select(table, ['*'])
+        except sqlite3.OperationalError:
+            return False
+        return len(data) > 0
 
     '''Get list of columns from table'''
     def get_columns(self, table: str):
