@@ -16,6 +16,7 @@ The idea of this project is for the system to be able to store information of ma
 
 - Temperature (model [DS18B20](https://pdf1.alldatasheet.com/datasheet-pdf/view/58557/DALLAS/DS18B20.html));
 - Water Level (no info on model, but check [this tutorial](https://lastminuteengineers.com/water-level-sensor-arduino-tutorial/)).
+- Light Intensity (model [GY-30](https://5.imimg.com/data5/TY/AK/MY-1833510/gy-30-bh1750-intensity-digital-light-sensor-module.pdf))
 
 More sensors are expected to be added soon. As explained in the next section, the code for the Arduino is programmed in such a way that adding other types of sensors shoud be relatively easy.
 
@@ -25,17 +26,17 @@ In the system, the Arduinos serve as interfaces between the sensors in a tank an
 
 ![TinkerCAD model of one of the possible circuits](./img/tank1.png)
 
-As the needs of each tank may be distinct, and the server might not be reachable with USB cable, the code must be versatile to switch between sensors and communication media. For this purpose, two main libraries are implemented and present in the directory `arduino/src` of this repository: `sensors` and `comms` (TODO).
+As the needs of each tank may be distinct, and the server might not be reachable with USB cable, the code must be versatile to switch between sensors and communication media. For this purpose, two main libraries are implemented and present in the directory `arduino/src` of this repository: `sensors` and `comms`.
 
 The `sensors` library offers a basic interface for how a sensor should behave through the `Sensor` class, defined in `sensors.h`, with functions such as `begin` and `readInput`.
 
-The `comms` library will provide a basic inteface for many communication media. It should be based in the `Serial` standard library for Arduino.
+The `comms` library provides a basic interface for many communication media. Its functions are based in the `Serial` standard library for Arduino.
 
 A more in depth documentation of the Arduino code can be found in the [Project Wiki](../../wiki).
 
 ## The Server
 
-The purpose of the server is also as interface, but this time, between the Arduinos and the database where the sensors readings should be stored. It should be able to connect with many boards, each sending its sensors' data, and store these readings in the database file presented in the `db` directory of this repository. For this, a communication protocol had to be estabilished to ensure that all the boards could be served correctly. The documentation for the server code, as well as the communication protocol, can be found in the [Project Wiki](../../wiki).
+The purpose of the server is also as interface, but this time, between the Arduinos and the database where the sensors readings should be stored. It must be able to connect with many boards, each sending its sensors' data, and store these readings in the database file presented in the `db` directory of this repository. For this, a communication protocol had to be estabilished to ensure that all the boards could be served correctly. The documentation for the server code, as well as the communication protocol, can be found in the [Project Wiki](../../wiki).
 
 ## Database
 
