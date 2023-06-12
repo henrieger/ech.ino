@@ -13,16 +13,15 @@ typedef enum
 class Sensor {
     public:
         Sensor();
-        Sensor(sensor_type, int);
-        Sensor(sensor_type, int, int *);
+        Sensor(sensor_type, int _inputPin);
 
         long readInput();
 
         sensor_type getSensorType();
-        void setSensorType(sensor_type);
+        void setSensorType(sensor_type _type);
 
         int getInputPin();
-        void setInputPin(int);
+        void setInputPin(int _inputPin);
 
     private:
         sensor_type type;
