@@ -5,17 +5,19 @@
 # include <string.h>
 # include <LiquidCrystal_I2C.h>
 
+# define TANK_ID 4
+
 # define TEMPERATURE_PIN 13
-# define WATER_PIN A0
-# define BUTTON_PIN A1
-# define POTENTIOMETER_PIN A2
-# define BUZZER_PIN A3
+# define BUTTON_PIN A0
+# define WATER_PIN A1
+# define BUZZER_PIN A2
+# define POTENTIOMETER_PIN A3
 
 # define LIN 4
 # define COL 20
 # define LCD_ADDR 0x27
 
-SerialComms serial = SerialComms(1);
+SerialComms serial = SerialComms(TANK_ID);
 byte waiting = true;
 
 TemperatureSensor tempSensor(TEMPERATURE_PIN);
@@ -139,5 +141,5 @@ void loop()
         } while (!serial.acknowledged());
     }
 
-    delay(1000);
+    delay(5000);
 }

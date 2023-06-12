@@ -43,7 +43,7 @@ void WaterSensor::warnOfWaterLevel()
 
 int WaterSensor::getThreshold()
 {
-    return analogRead(potentiometerPin) / 100;
+    return analogRead(potentiometerPin) / 10;
 }
 
 int WaterSensor::getButtonPin() { return buttonPin; }

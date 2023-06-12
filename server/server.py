@@ -20,7 +20,7 @@ def main():
 
     arduinos = []
 
-    ser = Serial(USB_PORT, 9600)
+    ser = Serial(USB_PORT, 9600, 300)
 
     while True:
         arduino = Arduino(ser)
@@ -38,9 +38,12 @@ def main():
         temperature_data = []
         light_data = []
         Arduino.trigger_measurements(ser)
+
         for arduino in arduinos:
-            arduino.request_data()
-            data = arduino.read_data()
+            data = []
+            while len(data) == 0:
+                arduino.request_data()
+                data = arduino.read_data()
 
             arduino.acknowledge()
 
@@ -56,7 +59,7 @@ def main():
         temperature_table.insert(temperature_data)
         light_table.insert(light_data)
         
-        sleep(10)
+        sleep(900)
 
 if __name__ == '__main__':
     main()

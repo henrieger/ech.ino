@@ -51,7 +51,6 @@ class Arduino:
         self.comms = comms
         self.tank_id = tank_id
 
-
     def read_id(self) -> bool:
         data = self.comms.read(timeout=5)
         if data is None: return False

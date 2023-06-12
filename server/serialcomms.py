@@ -2,10 +2,11 @@ from comms import *
 import serial
 
 class Serial(Comms):
-    def __init__(self, port: str, baudrate: int):
+    def __init__(self, port: str, baudrate: int, timeout: int):
         self.port = port
         self.baudrate = baudrate
         self.serial = serial.Serial(port, baudrate)
+        self.timeout = timeout
 
     def read(self, timeout=None) -> bytearray:
         buf = None
