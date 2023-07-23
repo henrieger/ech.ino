@@ -39,7 +39,8 @@ class Table:
 
     ''' Insert data into table'''
     def insert(self, data: list):
-        return self.db.insert(self.name, data)
+        if data and len(data) > 0:
+            return self.db.insert(self.name, data)
 
     '''Retrieve all data from table'''
     def select_all(self):
